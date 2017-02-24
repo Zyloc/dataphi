@@ -174,3 +174,6 @@ textarea.form-control {
  #social-em:hover {
      color: #f39c12;
  }
+ .lobibox-errors{
+ 	width: 600px; left: 395px; top: 50px;;
+ }

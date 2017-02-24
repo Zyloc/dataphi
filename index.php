@@ -1,6 +1,16 @@
 <?php
   require_once(realpath(dirname(__FILE__).'/functions/addPatient.php'));
   require_once(realpath(dirname(__FILE__).'/functions/fetchData.php'));
+  if($_SERVER['REQUEST_METHOD'] == 'POST'){	
+			try{
+				insertPatient($conn,$_POST);
+				$dataWasInserted = 1;    
+			}
+			catch(Exception $e){
+				$dataWasInserted = 2; 
+			}
+		}
+		$result = fetchData($conn);
 ?>
 <!DOCTYPE html>
 <html>
@@ -19,18 +29,6 @@
 	<link rel="stylesheet" href="css/Lobibox.min.css"/>
 </head>
 <body>
-	<?php
-		if($_SERVER['REQUEST_METHOD'] == 'POST'){	
-			try{
-				insertPatient($conn,$_POST);   
-			}
-			catch(Exception $e){
-			// trigger error message to input data properly
-			echo $e->getMessage();   
-			}
-		}
-		$result = fetchData($conn);
-	?>
 <header class="header-basic-light">
 	<div class="header-limiter">
 		<h1><a href="#"><img src="images/logo.png"></a></h1>
@@ -138,7 +136,7 @@
 				<th class="col-md-3 col-xs-3">Phone</th>
 			</tr>
 			<tr class="warning no-result">
-				<td colspan="4"><i class="fa fa-warning"></i> No result</td>
+				<td colspan="6"><i class="fa fa-warning"></i> No result</td>
 			</tr>
 		</thead>
 		<tbody>
@@ -169,7 +167,7 @@
 		</tbody>
 	</table>
 </div>	
-<div class="col-sm-12">
+<div class="col-sm-12" style="margin-top: 50px;">
     <hr />
         <div class="text-center center-block">
             <p class="txt-railway"> Dataphi <span style="color:blue">Labs</span></p>
@@ -184,8 +182,19 @@
 <script src="http://cdn.tutorialzine.com/misc/enhance/v3.js" async></script>
 <script src="js/Lobibox.min.js"></script>
 <script src="js/search.js"></script>
-<script>  
-	//Lobibox.alert("error",{msg:"Please enter a valid name"});
+<?php
+if(isset($dataWasInserted)){
+	if($dataWasInserted == 1){
+	?> <script> Lobibox.alert("success",{msg:"Patient Information was Successfully inserted."}); </script>
+	<?php
+	}
+	else if ($dataWasInserted == 2){
+		?>
+		<script> Lobibox.alert("error",{msg:"Patient Information was not inserted."}); </script> <?php
+	}
+}
+?> 
+<script> 
 </script>
 </body>
 </html>

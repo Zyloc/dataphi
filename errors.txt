@@ -1,0 +1,1 @@
+SQLSTATE[HY000] [2002] php_network_getaddresses: getaddrinfo failed: No such host is known. SQLSTATE[3D000]: Invalid catalog name: 1046 No database selectedSQLSTATE[3D000]: Invalid catalog name: 1046 No database selectedSQLSTATE[3D000]: Invalid catalog name: 1046 No database selected
